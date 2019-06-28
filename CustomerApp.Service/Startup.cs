@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 
 namespace CustomerApp.Service
 {
@@ -26,11 +27,31 @@ namespace CustomerApp.Service
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                    {
+                        Title = "My API", Version = "v1",
+                        Description = "A simple CustomerApp using ASP.NET Core Web API",
+                        Contact = new OpenApiContact
+                        {
+                            Name = "Aljon Rey Cadiz",
+                            Email = string.Empty,
+                            Url = new Uri("https://www.facebook.com/profile.php?id=100011406835142"),
+                        },
+                }
+                );
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -41,6 +62,13 @@ namespace CustomerApp.Service
             }
 
             app.UseHttpsRedirection();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
             app.UseMvc();
         }
     }
