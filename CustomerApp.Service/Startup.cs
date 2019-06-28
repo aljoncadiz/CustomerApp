@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Autofac;
+using CustomerApp.BusinessLogic;
+using CustomerApp.BusinessLogic.Interface;
 using CustomerApp.Infra;
 using CustomerApp.Infra.Interface;
 using Microsoft.AspNetCore.Builder;
@@ -78,6 +80,8 @@ namespace CustomerApp.Service
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterType<Data>().As<IData>();
+            builder.RegisterType<CustomerBusinessLogic>().As<ICustomerBusinessLogic>();
+            builder.RegisterType<CustomerRepository>().As<ICustomerRepository>();
         }
     }
 }

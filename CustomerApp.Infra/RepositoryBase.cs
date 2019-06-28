@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CustomerApp.Infra
 {
@@ -27,37 +28,32 @@ namespace CustomerApp.Infra
             _data = data;
         }
 
-        public virtual T Create(T entity)
+        public async Task<T> Create(T entity)
         {
             Data.Add(entity);
-            T newlyCreatedEntity = FindById(entity.ID);
+            T newlyCreatedEntity = await FindById(entity.ID);
             return newlyCreatedEntity;
         }
 
-        public void Delete(int key)
+        public async Task Delete(int key)
         {
-            T entityToDelete = FindById(key);
+            T entityToDelete = await FindById(key);
             Data.Remove(entityToDelete);
         }
 
-        public IEnumerable<T> FindAll()
+        public async Task<IEnumerable<T>> FindAll()
         {
-            IEnumerable<T> query = from e in Data
-                               orderby e.ID
-                               select e;
-
-            return query;
+            return await Task.Run(() => Data.OrderBy(x => x.ID));
         }
 
-        public T FindById(int key)
+        public async Task<T> FindById(int key)
         {
-            return Data.Find(x => x.ID == key);
+            return await Task.Run(() => Data.Where(x => x.ID == key).FirstOrDefault());
         }
 
-        public T Update(int key, T entity)
+        public async Task<T> Update(int key, T entity)
         {
-            T updatedEntity = Data.Where(x => x.ID == key).Select(e => entity).FirstOrDefault();
-            return updatedEntity;
+            return await Task.Run(() => Data.Where(x => x.ID == key).Select(e => entity).FirstOrDefault());
         }
     }
 }

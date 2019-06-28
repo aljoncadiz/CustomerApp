@@ -3,6 +3,7 @@ using CustomerApp.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CustomerApp.Infra
 {
@@ -13,29 +14,29 @@ namespace CustomerApp.Infra
 
         }
 
-        public Customer CreateCustomer(Customer customer)
+        public async Task<Customer> CreateCustomer(Customer customer)
         {
-            return this.Create(customer);
+            return await this.Create(customer);
         }
 
-        public void DeleteCustomer(int id)
+        public async Task DeleteCustomer(int id)
         {
-            this.Delete(id);
+            await this.Delete(id);
         }
 
-        public IEnumerable<Customer> GetAllCustomer()
+        public async Task<IEnumerable<Customer>> GetAllCustomer()
         {
-            return this.FindAll();
+            return await this.FindAll();
         }
 
-        public Customer GetCustomerById(int id)
+        public async Task<Customer> GetCustomerById(int id)
         {
-            return this.FindById(id);
+            return await this.FindById(id);
         }
 
-        public Customer UpdateCustomer(Customer customer)
+        public async Task<Customer> UpdateCustomer(Customer customer)
         {
-            return this.Update(customer.ID, customer);
+            return await this.Update(customer.ID, customer);
         }
     }
 }

@@ -14,7 +14,11 @@ namespace CustomerApp.Infra
 
         public Data()
         {
-
+            //this.CustomerList.Add(new Customer()
+            //{
+            //    ID = 1,
+            //    FullName = "Aljon Rey Cadiz"
+            //});
         }
 
         public List<Customer> CustomerList

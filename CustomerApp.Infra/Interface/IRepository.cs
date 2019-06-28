@@ -2,19 +2,20 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CustomerApp.Infra.Interface
 {
     public interface IRepository<T> where T: EntityBase
     {
-        T Create(T entity);
+        Task<T> Create(T entity);
 
-        T Update(int key, T entity);
+        Task<T> Update(int key, T entity);
 
-        void Delete(int key);
+        Task Delete(int key);
 
-        T FindById(int key);
+        Task<T> FindById(int key);
 
-        IEnumerable<T> FindAll();
+        Task<IEnumerable<T>> FindAll();
     }
 }
