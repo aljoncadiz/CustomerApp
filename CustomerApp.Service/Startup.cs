@@ -82,6 +82,7 @@ namespace CustomerApp.Service
             builder.RegisterType<Data>().As<IData>();
             builder.RegisterType<CustomerBusinessLogic>().As<ICustomerBusinessLogic>();
             builder.RegisterType<CustomerRepository>().As<ICustomerRepository>();
+            builder.RegisterType<AddressRepository>().As<IAddressRepository>();
         }
     }
 }

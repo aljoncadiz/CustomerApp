@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace CustomerApp.Infra
 {
     public abstract class RepositoryBase<T> : IRepository<T>
-        where T : EntityBase
+        where T : IEntityBase
     {
 
         private List<T> _data;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CustomerApp.Infra.Interface
 {
-    public interface IRepository<T> where T: EntityBase
+    public interface IRepository<T> where T: IEntityBase
     {
         Task<T> Create(T entity);
 

@@ -1,5 +1,6 @@
 ﻿using CustomerApp.Infra.Interface;
 using CustomerApp.Model;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -14,16 +15,12 @@ namespace CustomerApp.Infra
 
         public Data()
         {
-            //this.CustomerList.Add(new Customer()
-            //{
-            //    ID = 1,
-            //    FullName = "Aljon Rey Cadiz"
-            //});
+
         }
 
         public List<Customer> CustomerList
         {
-            get { return _customerList;  }
+            get { return _customerList; }
             set
             {
                 _customerList = value;

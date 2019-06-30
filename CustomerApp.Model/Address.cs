@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace CustomerApp.Model
 {
-    public class Address: EntityBase
+    public class Address: IEntityBase
     {
+        static int nextId;
+        public int ID { get; private set; }
+
+        public Address()
+        {
+            ID = Interlocked.Increment(ref nextId);
+        }
         /// <summary>
         /// Suite or Apartment number if applicable
         /// </summary>

@@ -11,10 +11,12 @@ namespace CustomerApp.BusinessLogic
     public class CustomerBusinessLogic : ICustomerBusinessLogic
     {
         private readonly ICustomerRepository _customerRepository;
+        private readonly IAddressRepository _addressRepository;
 
-        public CustomerBusinessLogic(ICustomerRepository customerRepository)
+        public CustomerBusinessLogic(ICustomerRepository customerRepository, IAddressRepository addressRepository)
         {
             this._customerRepository = customerRepository;
+            this._addressRepository = addressRepository;
         }
 
         public async Task<Customer> CreateCustomer(Customer customer)
@@ -25,6 +27,7 @@ namespace CustomerApp.BusinessLogic
         public async Task DeleteCustomer(int id)
         {
             await this._customerRepository.DeleteCustomer(id);
+            var addresses = await this._addressRepository.GetAllAddress();
         }
 
         public async Task<Customer> GetCustomer(int id)

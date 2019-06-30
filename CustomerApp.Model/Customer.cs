@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace CustomerApp.Model
 {
-    public class Customer: EntityBase
+    public class Customer: IEntityBase
     {
+        static int nextId;
+        public int ID { get; private set; }
+
+        public Customer()
+        {
+            ID = Interlocked.Increment(ref nextId);
+        }
         /// <summary>
         /// Customer's FirstName & LastName
         /// </summary>
