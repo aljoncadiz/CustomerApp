@@ -55,7 +55,7 @@ namespace CustomerApp.Service
                             new OpenApiSecurityScheme
                             {
                                 In = ParameterLocation.Header,
-                                Description = "Please enter into field the word 'Bearer' following by space and JWT",
+                                Description = "Basic authentication header",
                                 Name = "Authorization",
                                 Type = SecuritySchemeType.ApiKey
                             });
