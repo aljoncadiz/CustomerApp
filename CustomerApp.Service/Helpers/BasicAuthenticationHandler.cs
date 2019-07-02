@@ -32,12 +32,14 @@ namespace CustomerApp.Service.Helpers
             {
                 if (!Request.Headers.ContainsKey("Authorization"))
                 {
+                    this.Logger.LogError("Missing Authorization Header");
                     return AuthenticateResult.Fail("Missing Authorization Header");
                 }
                 var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
                     
                 if(authHeader.Scheme != this._authScheme)
                 {
+                    this.Logger.LogError("Invalid Authorization Header");
                     return AuthenticateResult.Fail("Invalid Authorization Header");
                 }
                 else

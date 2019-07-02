@@ -7,6 +7,7 @@ using CustomerApp.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 namespace CustomerApp.Service.Controllers
 {
@@ -16,9 +17,12 @@ namespace CustomerApp.Service.Controllers
     public class CustomerController : ControllerBase
     {
         private readonly ICustomerBusinessLogic _customeBusinessLogic;
-        public CustomerController(ICustomerBusinessLogic customerBusinessLogic)
+        private readonly ILogger<CustomerController> _logger;
+
+        public CustomerController(ICustomerBusinessLogic customerBusinessLogic, ILogger<CustomerController> logger)
         {
-            this._customeBusinessLogic = customerBusinessLogic;
+            _customeBusinessLogic = customerBusinessLogic;
+            _logger = logger;
         }
 
         /// <summary>
@@ -30,6 +34,7 @@ namespace CustomerApp.Service.Controllers
                 var result = await this._customeBusinessLogic.GetCustomersList();
                 if (!result.Any())
                 {
+                    _logger.LogError("404 Not Found");
                     return new NotFoundResult();
                 }
                 return new OkObjectResult(result);
@@ -44,6 +49,7 @@ namespace CustomerApp.Service.Controllers
                 var result = this._customeBusinessLogic.GetCustomer(id);
                 if (result == null)
                 {
+                    _logger.LogError("404 Not Found");
                     return new NotFoundResult();
                 }
                 return new OkObjectResult(result);
@@ -57,6 +63,7 @@ namespace CustomerApp.Service.Controllers
         {
             if(customer == null)
             {
+                _logger.LogError("400 Bad Request");
                 return new BadRequestResult();
             }
 
@@ -72,12 +79,14 @@ namespace CustomerApp.Service.Controllers
         {
             if (customer == null)
             {
+                _logger.LogError("204 No Content");
                 return new NoContentResult();
             }
 
             var customerToUpdate = await this._customeBusinessLogic.GetCustomer(customer.ID);
             if(customerToUpdate == null)
             {
+                _logger.LogError("404 Not Found");
                 return new NotFoundResult();
             }
 
@@ -94,6 +103,7 @@ namespace CustomerApp.Service.Controllers
             var customerToDelete = await this._customeBusinessLogic.GetCustomer(id);
             if (customerToDelete == null)
             {
+                _logger.LogError("404 Not Found");
                 return new NotFoundResult();
             }
 
