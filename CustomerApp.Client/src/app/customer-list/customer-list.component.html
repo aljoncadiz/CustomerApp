@@ -1,0 +1,13 @@
+<table style="width: 100%">
+    <tr>
+        <th>ID</th>
+        <th>FullName</th>
+        <th></th>
+    </tr>
+    <tr *ngFor="let customer on customers">
+        <td>{{ customer.id }}</td>
+        <td>{{ customer.fullname }}</td>
+        <td><a [routerLink="'/customer/edit/:id'"]> Update </a></td>
+    </tr>
+</table>
+

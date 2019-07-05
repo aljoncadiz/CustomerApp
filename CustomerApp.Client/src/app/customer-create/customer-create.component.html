@@ -1,0 +1,33 @@
+<form [formGroup]="customerForm" (ngSubmit)="submitForm()">
+    <input 
+        formControlName="fullname"
+        placeholder="Fullname"
+        type="text"
+        />
+    <input 
+        formControlName="birthdate"
+        placeholder="birthdate"
+        type="text"
+        />
+    <input 
+        formControlName="age"
+        placeholder="Age"
+        type="text"
+        />
+    <input 
+        formControlName="addressLine1"
+        placeholder="AddressLine1"
+        type="text"
+        />
+    <input 
+        formControlName="addressLine2"
+        placeholder="AddressLine2"
+        type="text"
+        />
+    <input 
+        formControlName="City"
+        placeholder="city"
+        type="text"
+        />
+        <button type="submit"> Submit </button>
+</form>
